@@ -12,18 +12,21 @@
         <div class="col">
           <fieldset class="scheduler-border shadow-sm">
             <legend class="scheduler-border font-usco-vt">
-              Otros estudios relizados
+              Otros estudios realizados
             </legend>
             <div class="row text-right mb-2">
               <div class="col">
-                <button class="btn btn-usco-vt" (click)="registrarFormulario()">
+                <button
+                  class="btn btn-usco-vt"
+                  (click)="registrarFormularioEstudiosRealizados()"
+                >
                   <i class="fa-solid fa-plus"></i> Agregar
                 </button>
               </div>
             </div>
             <table
               mat-table
-              [dataSource]="dataSource"
+              [dataSource]="dataSourceRegistroEducativo"
               class="table table-hover shadow"
             >
               <ng-container matColumnDef="index">
@@ -33,37 +36,40 @@
                   *matCellDef="let element; let i = index"
                   class="font-sm-usco"
                 >
-                  {{ dataSource.filteredData.indexOf(element) + 1 }}
+                  {{
+                    dataSourceRegistroEducativo.filteredData.indexOf(element) +
+                      1
+                  }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="cargo">
-                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+              <ng-container matColumnDef="estudio">
+                <th mat-header-cell *matHeaderCellDef>Estudio</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
                   {{ element.cargo }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="funcion">
-                <th mat-header-cell *matHeaderCellDef>Función</th>
+              <ng-container matColumnDef="nivel">
+                <th mat-header-cell *matHeaderCellDef>Nivel de formación</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
                   {{ element.funcion }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="empresa">
+              <ng-container matColumnDef="titulo">
                 <th style="width: 20%" mat-header-cell *matHeaderCellDef>
-                  Empresa
+                  Título
                 </th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
                   {{ element.empresa }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="fechaInicio">
-                <th mat-header-cell *matHeaderCellDef>Fehca inicio</th>
+              <ng-container matColumnDef="entidad">
+                <th mat-header-cell *matHeaderCellDef>Entidad</th>
                 <td mat-cell *matCellDef="let element">
                   {{ element.fechaInicio | date : "dd/MM/yyyy" }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="fechaFin">
-                <th mat-header-cell *matHeaderCellDef>Fehca fin</th>
+              <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef>Fecha</th>
                 <td mat-cell *matCellDef="let element">
                   {{ element.fechaFin | date : "dd/MM/yyyy" }}
                 </td>
@@ -73,7 +79,7 @@
                 <td mat-cell *matCellDef="let element">
                   <button
                     class="btn btn-danger btn-sm mr-2"
-                    (click)="eliminarMencionReconocimiento(element)"
+                    (click)="eliminarRegistroEducativo(element)"
                     #tooltip="matTooltip"
                     matTooltip="Borrar"
                     matTooltipPosition="above"
@@ -82,7 +88,7 @@
                   </button>
                   <button
                     class="btn btn-info btn-sm"
-                    (click)="editarFormulario(element)"
+                    (click)="editarFormularioEstudiosRealizados(element)"
                     #tooltip="matTooltip"
                     matTooltip="Editar"
                     matTooltipPosition="above"
@@ -91,10 +97,17 @@
                   </button>
                 </td>
               </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumnsRegistroEducativo"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumnsRegistroEducativo"
+              ></tr>
             </table>
             <mat-paginator
+              #MatPaginatorRegistroEducativo="matPaginator"
               [pageSizeOptions]="[10, 20, 30]"
               showFirstLastButtons
             ></mat-paginator>
@@ -105,14 +118,17 @@
             </legend>
             <div class="row text-right mb-2">
               <div class="col">
-                <button class="btn btn-usco-vt" (click)="registrarFormulario()">
+                <button
+                  class="btn btn-usco-vt"
+                  (click)="registrarFormularioIdioma()"
+                >
                   <i class="fa-solid fa-plus"></i> Agregar
                 </button>
               </div>
             </div>
             <table
               mat-table
-              [dataSource]="dataSource"
+              [dataSource]="dataSourceIdioma"
               class="table table-hover shadow"
             >
               <ng-container matColumnDef="index">
@@ -122,39 +138,33 @@
                   *matCellDef="let element; let i = index"
                   class="font-sm-usco"
                 >
-                  {{ dataSource.filteredData.indexOf(element) + 1 }}
+                  {{ dataSourceIdioma.filteredData.indexOf(element) + 1 }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="cargo">
-                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+              <ng-container matColumnDef="idioma">
+                <th mat-header-cell *matHeaderCellDef>Idioma</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
                   {{ element.cargo }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="funcion">
-                <th mat-header-cell *matHeaderCellDef>Función</th>
+              <ng-container matColumnDef="conversacion">
+                <th mat-header-cell *matHeaderCellDef>Conversación</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
                   {{ element.funcion }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="empresa">
+              <ng-container matColumnDef="escritura">
                 <th style="width: 20%" mat-header-cell *matHeaderCellDef>
-                  Empresa
+                  Escritura
                 </th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
                   {{ element.empresa }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="fechaInicio">
-                <th mat-header-cell *matHeaderCellDef>Fehca inicio</th>
+              <ng-container matColumnDef="lectura">
+                <th mat-header-cell *matHeaderCellDef>Lectura</th>
                 <td mat-cell *matCellDef="let element">
                   {{ element.fechaInicio | date : "dd/MM/yyyy" }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="fechaFin">
-                <th mat-header-cell *matHeaderCellDef>Fehca fin</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.fechaFin | date : "dd/MM/yyyy" }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="opciones">
@@ -162,7 +172,7 @@
                 <td mat-cell *matCellDef="let element">
                   <button
                     class="btn btn-danger btn-sm mr-2"
-                    (click)="eliminarMencionReconocimiento(element)"
+                    (click)="eliminarRegistroEducativo(element)"
                     #tooltip="matTooltip"
                     matTooltip="Borrar"
                     matTooltipPosition="above"
@@ -171,7 +181,7 @@
                   </button>
                   <button
                     class="btn btn-info btn-sm"
-                    (click)="editarFormulario(element)"
+                    (click)="editarFormularioIdioma(element)"
                     #tooltip="matTooltip"
                     matTooltip="Editar"
                     matTooltipPosition="above"
@@ -180,10 +190,14 @@
                   </button>
                 </td>
               </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsIdioma"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumnsIdioma"
+              ></tr>
             </table>
             <mat-paginator
+              #MatPaginatorIdioma="matPaginator"
               [pageSizeOptions]="[10, 20, 30]"
               showFirstLastButtons
             ></mat-paginator>
@@ -194,14 +208,17 @@
             </legend>
             <div class="row text-right mb-2">
               <div class="col">
-                <button class="btn btn-usco-vt" (click)="registrarFormulario()">
+                <button
+                  class="btn btn-usco-vt"
+                  (click)="registrarFormularioHabilidadInformatica()"
+                >
                   <i class="fa-solid fa-plus"></i> Agregar
                 </button>
               </div>
             </div>
             <table
               mat-table
-              [dataSource]="dataSource"
+              [dataSource]="dataSourceHabilidadInformatica"
               class="table table-hover shadow"
             >
               <ng-container matColumnDef="index">
@@ -211,39 +228,23 @@
                   *matCellDef="let element; let i = index"
                   class="font-sm-usco"
                 >
-                  {{ dataSource.filteredData.indexOf(element) + 1 }}
+                  {{
+                    dataSourceHabilidadInformatica.filteredData.indexOf(
+                      element
+                    ) + 1
+                  }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="cargo">
-                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+              <ng-container matColumnDef="programa">
+                <th mat-header-cell *matHeaderCellDef>Programa</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
                   {{ element.cargo }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="funcion">
-                <th mat-header-cell *matHeaderCellDef>Función</th>
+              <ng-container matColumnDef="dominio">
+                <th mat-header-cell *matHeaderCellDef>Dominio</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
                   {{ element.funcion }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="empresa">
-                <th style="width: 20%" mat-header-cell *matHeaderCellDef>
-                  Empresa
-                </th>
-                <td mat-cell *matCellDef="let element" class="font-sm-usco">
-                  {{ element.empresa }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="fechaInicio">
-                <th mat-header-cell *matHeaderCellDef>Fehca inicio</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.fechaInicio | date : "dd/MM/yyyy" }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="fechaFin">
-                <th mat-header-cell *matHeaderCellDef>Fehca fin</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.fechaFin | date : "dd/MM/yyyy" }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="opciones">
@@ -251,7 +252,7 @@
                 <td mat-cell *matCellDef="let element">
                   <button
                     class="btn btn-danger btn-sm mr-2"
-                    (click)="eliminarMencionReconocimiento(element)"
+                    (click)="eliminarRegistroEducativo(element)"
                     #tooltip="matTooltip"
                     matTooltip="Borrar"
                     matTooltipPosition="above"
@@ -260,7 +261,7 @@
                   </button>
                   <button
                     class="btn btn-info btn-sm"
-                    (click)="editarFormulario(element)"
+                    (click)="editarFormularioHabilidadInformatica(element)"
                     #tooltip="matTooltip"
                     matTooltip="Editar"
                     matTooltipPosition="above"
@@ -269,10 +270,20 @@
                   </button>
                 </td>
               </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumnsHabilidadInformatica"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="
+                  let row;
+                  columns: displayedColumnsHabilidadInformatica
+                "
+              ></tr>
             </table>
             <mat-paginator
+              #MatPaginatorHabilidadInformatica="matPaginator"
               [pageSizeOptions]="[10, 20, 30]"
               showFirstLastButtons
             ></mat-paginator>

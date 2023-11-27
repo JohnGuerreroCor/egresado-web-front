@@ -1,5 +1,5 @@
 <h2 mat-dialog-title class="text-white bg-usco-gr-d6">
-  <i class="fa-solid fa-circle-info"></i> Formulario experiencia laboral
+  <i class="fa-solid fa-circle-info"></i> Formulario habilidades informáticas
 </h2>
 <mat-dialog-content>
   <div class="row mt-4">
@@ -8,56 +8,14 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Cargo</mat-label>
+              <mat-label>Programa informático</mat-label>
               <input required matInput type="text" formControlName="cargo" />
             </mat-form-field>
           </div>
-        </div>
-        <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Función</mat-label>
-              <input required matInput type="text" formControlName="funcion" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Empresa</mat-label>
-              <input required matInput type="text" formControlName="empresa" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Fecha de inicio (Día/Mes/Año)</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker1"
-                formControlName="fechaInicio"
-              />
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="picker1"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Fecha de finalización (Día/Mes/Año)</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker2"
-                formControlName="fechaFin"
-              />
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="picker2"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker2></mat-datepicker>
+              <mat-label>Dominio del programa</mat-label>
+              <input required matInput type="text" formControlName="cargo" />
             </mat-form-field>
           </div>
         </div>

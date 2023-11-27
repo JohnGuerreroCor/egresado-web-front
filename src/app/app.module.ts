@@ -29,6 +29,8 @@ import {
 import {
   InformacionAcademicaComponent,
   ModalHabilidadInformatica,
+  ModalIdioma,
+  ModalEstudiosRealizados,
 } from './components/encuesta-egresado/informacion-academica/informacion-academica.component';
 import { PerfilProfesionalComponent } from './components/encuesta-egresado/perfil-profesional/perfil-profesional.component';
 
@@ -50,6 +52,8 @@ registerLocaleData(localeEsCO, 'es-CO');
     ModalResidencia,
     ModalExperienciaLaboral,
     ModalHabilidadInformatica,
+    ModalIdioma,
+    ModalEstudiosRealizados,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +70,8 @@ registerLocaleData(localeEsCO, 'es-CO');
     ModalResidencia,
     ModalExperienciaLaboral,
     ModalHabilidadInformatica,
+    ModalIdioma,
+    ModalEstudiosRealizados,
   ],
   providers: [
     DatePipe,

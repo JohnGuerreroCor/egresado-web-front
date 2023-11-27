@@ -1,0 +1,51 @@
+<h2 mat-dialog-title class="text-white bg-usco-gr-d6">
+  <i class="fa-solid fa-circle-info"></i> Formulario idiomas
+</h2>
+<mat-dialog-content>
+  <div class="row mt-4">
+    <div class="col pl-4 pr-4">
+      <form [formGroup]="formulario">
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Idiomas</mat-label>
+              <input required matInput type="text" formControlName="cargo" />
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Conversación</mat-label>
+              <input required matInput type="text" formControlName="cargo" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Escritura</mat-label>
+              <input required matInput type="text" formControlName="funcion" />
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Lectura</mat-label>
+              <input required matInput type="text" formControlName="funcion" />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-warning mr-2" mat-dialog-close>
+    <i class="fa-solid fa-xmark"></i> Cancelar
+  </button>
+  <button
+    class="btn btn-success"
+    (click)="generar()"
+    [disabled]="!formulario.valid"
+  >
+    <i class="fa-solid fa-floppy-disk"></i> Guardar
+  </button>
+</mat-dialog-actions>

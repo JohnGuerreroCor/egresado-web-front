@@ -1,0 +1,76 @@
+<h2 mat-dialog-title class="text-white bg-usco-gr-d6">
+  <i class="fa-solid fa-circle-info"></i> Formulario estudios realizados
+</h2>
+<mat-dialog-content>
+  <div class="row mt-4">
+    <div class="col pl-4 pr-4">
+      <form [formGroup]="formulario">
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Nombre del estudio</mat-label>
+              <input required matInput type="text" formControlName="titulo" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Nivel Formación</mat-label>
+              <mat-select formControlName="nivelFormacion">
+                <mat-option
+                  *ngFor="
+                    let element of listadoNivelesFormacion
+                  "
+                  [value]="element.codigo"
+                  >{{ element.nombre }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Fecha de inicio (Día/Mes/Año)</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker1"
+                formControlName="fecha"
+              />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Entidad</mat-label>
+              <input required matInput type="text" formControlName="entidad" />
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Título obtenido</mat-label>
+              <input required matInput type="text" formControlName="obtenido" />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-warning mr-2" mat-dialog-close>
+    <i class="fa-solid fa-xmark"></i> Cancelar
+  </button>
+  <button
+    class="btn btn-success"
+    (click)="generar()"
+    [disabled]="!formulario.valid"
+  >
+    <i class="fa-solid fa-floppy-disk"></i> Guardar
+  </button>
+</mat-dialog-actions>

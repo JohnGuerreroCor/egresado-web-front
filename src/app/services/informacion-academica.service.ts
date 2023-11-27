@@ -44,12 +44,10 @@ export class InformacionAcademicaService {
     return false;
   }
 
-  obtenerHabilidadesInformaticas(
-    id: string
-  ): Observable<HabilidadInformatica[]> {
+  obtenerDatosComplementarios(id: string): Observable<DatosComplementarios[]> {
     return this.http
-      .get<HabilidadInformatica[]>(
-        `${this.url}/obtener-habilidades-informaticas/${id}`,
+      .get<DatosComplementarios[]>(
+        `${this.url}/obtener-datos-complementarios/${id}`,
         {
           headers: this.aggAutorizacionHeader(),
         }
@@ -64,13 +62,30 @@ export class InformacionAcademicaService {
       );
   }
 
-  obtenerReporteHabilidadesInformaticas(
-    inicio: any,
-    fin: any
+  obtenerRegistroEducativo(id: string): Observable<RegistroEducativo[]> {
+    return this.http
+      .get<RegistroEducativo[]>(
+        `${this.url}/obtener-registro-educativo/${id}`,
+        {
+          headers: this.aggAutorizacionHeader(),
+        }
+      )
+      .pipe(
+        catchError((e) => {
+          if (this.isNoAutorizado(e)) {
+            return throwError(e);
+          }
+          return throwError(e);
+        })
+      );
+  }
+
+  obtenerHabilidadesInformaticas(
+    id: string
   ): Observable<HabilidadInformatica[]> {
     return this.http
       .get<HabilidadInformatica[]>(
-        `${this.url}/obtener-reporte-habilidades-informaticas/${inicio}/${fin}`,
+        `${this.url}/obtener-habilidades-informaticas/${id}`,
         {
           headers: this.aggAutorizacionHeader(),
         }
@@ -100,96 +115,55 @@ export class InformacionAcademicaService {
       );
   }
 
-  obtenerReporteIdiomas(inicio: any, fin: any): Observable<Idioma[]> {
-    return this.http
-      .get<Idioma[]>(`${this.url}/obtener-reporte-idiomas/${inicio}/${fin}`, {
-        headers: this.aggAutorizacionHeader(),
-      })
-      .pipe(
-        catchError((e) => {
-          if (this.isNoAutorizado(e)) {
-            return throwError(e);
-          }
-          return throwError(e);
-        })
-      );
+  registrarEstudioRealizado(
+    registroEducativo: RegistroEducativo
+  ): Observable<number> {
+    return this.http.put<number>(
+      `${this.url}/registrar-educativo`,
+      registroEducativo,
+      { headers: this.aggAutorizacionHeader() }
+    );
   }
 
-  obtenerRegistroEducativo(id: string): Observable<RegistroEducativo[]> {
-    return this.http
-      .get<RegistroEducativo[]>(
-        `${this.url}/obtener-registro-educativo/${id}`,
-        {
-          headers: this.aggAutorizacionHeader(),
-        }
-      )
-      .pipe(
-        catchError((e) => {
-          if (this.isNoAutorizado(e)) {
-            return throwError(e);
-          }
-          return throwError(e);
-        })
-      );
+  actualizarEstudioRealizado(
+    registroEducativo: RegistroEducativo
+  ): Observable<number> {
+    return this.http.put<number>(
+      `${this.url}/actualizar-educativo`,
+      registroEducativo,
+      { headers: this.aggAutorizacionHeader() }
+    );
   }
 
-  obtenerReporteRegistroEducativo(
-    inicio: any,
-    fin: any
-  ): Observable<RegistroEducativo[]> {
-    return this.http
-      .get<RegistroEducativo[]>(
-        `${this.url}/obtener-reporte-registro-educativo/${inicio}/${fin}`,
-        {
-          headers: this.aggAutorizacionHeader(),
-        }
-      )
-      .pipe(
-        catchError((e) => {
-          if (this.isNoAutorizado(e)) {
-            return throwError(e);
-          }
-          return throwError(e);
-        })
-      );
+  registrarIdioma(idioma: Idioma): Observable<number> {
+    return this.http.put<number>(`${this.url}/registrar-idioma`, idioma, {
+      headers: this.aggAutorizacionHeader(),
+    });
   }
 
-  obtenerDatosComplementarios(id: string): Observable<DatosComplementarios[]> {
-    return this.http
-      .get<DatosComplementarios[]>(
-        `${this.url}/obtener-datos-complementarios/${id}`,
-        {
-          headers: this.aggAutorizacionHeader(),
-        }
-      )
-      .pipe(
-        catchError((e) => {
-          if (this.isNoAutorizado(e)) {
-            return throwError(e);
-          }
-          return throwError(e);
-        })
-      );
+  actualizarIdioma(idioma: Idioma): Observable<number> {
+    return this.http.put<number>(`${this.url}/actualizar-idioma`, idioma, {
+      headers: this.aggAutorizacionHeader(),
+    });
   }
 
-  obtenerReporteDatosComplementarios(
-    inicio: any,
-    fin: any
-  ): Observable<DatosComplementarios[]> {
-    return this.http
-      .get<DatosComplementarios[]>(
-        `${this.url}/obtener-reporte-datos-complementarios/${inicio}/${fin}`,
-        {
-          headers: this.aggAutorizacionHeader(),
-        }
-      )
-      .pipe(
-        catchError((e) => {
-          if (this.isNoAutorizado(e)) {
-            return throwError(e);
-          }
-          return throwError(e);
-        })
-      );
+  registrarHabilidadInformatica(
+    habilidadInformatica: HabilidadInformatica
+  ): Observable<number> {
+    return this.http.put<number>(
+      `${this.url}/registrar-habilidad-informatica`,
+      habilidadInformatica,
+      { headers: this.aggAutorizacionHeader() }
+    );
+  }
+
+  actualizarHabilidadInformatica(
+    habilidadInformatica: HabilidadInformatica
+  ): Observable<number> {
+    return this.http.put<number>(
+      `${this.url}/actualizar-habilidad-informatica`,
+      habilidadInformatica,
+      { headers: this.aggAutorizacionHeader() }
+    );
   }
 }
