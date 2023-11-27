@@ -1,0 +1,71 @@
+<div id="content-wrap" class="container mt-3 mb-5 text-center" #target>
+  <div class="card rounded-2 p-0 shadow-sm mt-5">
+    <div
+      class="card-header ml-4 mb-3 mr-4 cursor-select"
+      [routerLink]="['/egresado']"
+      routerLinkActive="router-link-active"
+    >
+      <h4 class="font-usco-default">
+        <strong>Perfil profesional</strong>
+      </h4>
+    </div>
+    <div class="card-body ls">
+      <div class="row">
+        <div class="col">
+          <form class="pl-4 pr-4">
+            <fieldset class="scheduler-border shadow-sm">
+              <legend class="scheduler-border font-usco-vt">
+                Perfil profesional
+              </legend>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field
+                    class="example-full-width"
+                    appearance="outline"
+                  >
+                    <mat-label>Profesión</mat-label>
+                    <input required matInput type="text" />
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field
+                    class="example-full-width"
+                    appearance="outline"
+                  >
+                    <mat-label
+                      >Fecha de Grado (DD/MM/AA) (Campo reservado para Registro
+                      y Control Academico)</mat-label
+                    >
+                    <input required matInput type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field
+                    class="example-full-width"
+                    appearance="outline"
+                  >
+                    <mat-label>Título Trabajo de Grado</mat-label>
+                    <input required matInput type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field
+                    class="example-full-width"
+                    appearance="outline"
+                  >
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput rows="7"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

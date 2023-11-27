@@ -1,0 +1,284 @@
+<div class="container mt-3 mb-5 text-center" #target>
+  <div class="card rounded-2 p-0 shadow-sm mt-5">
+    <div
+      class="card-header ml-4 mb-3 mr-4 cursor-select"
+      [routerLink]="['/inicio']"
+      routerLinkActive="router-link-active"
+    >
+      <h4 class="font-usco-default">Información académica</h4>
+    </div>
+    <div class="card-body ls">
+      <div class="row">
+        <div class="col">
+          <fieldset class="scheduler-border shadow-sm">
+            <legend class="scheduler-border font-usco-vt">
+              Otros estudios relizados
+            </legend>
+            <div class="row text-right mb-2">
+              <div class="col">
+                <button class="btn btn-usco-vt" (click)="registrarFormulario()">
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+            <table
+              mat-table
+              [dataSource]="dataSource"
+              class="table table-hover shadow"
+            >
+              <ng-container matColumnDef="index">
+                <th mat-header-cell *matHeaderCellDef>N°</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element; let i = index"
+                  class="font-sm-usco"
+                >
+                  {{ dataSource.filteredData.indexOf(element) + 1 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="cargo">
+                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                <td mat-cell *matCellDef="let element" class="font-sm-usco">
+                  {{ element.cargo }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="funcion">
+                <th mat-header-cell *matHeaderCellDef>Función</th>
+                <td mat-cell *matCellDef="let element" class="font-sm-usco">
+                  {{ element.funcion }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="empresa">
+                <th style="width: 20%" mat-header-cell *matHeaderCellDef>
+                  Empresa
+                </th>
+                <td mat-cell *matCellDef="let element" class="font-sm-usco">
+                  {{ element.empresa }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fechaInicio">
+                <th mat-header-cell *matHeaderCellDef>Fehca inicio</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.fechaInicio | date : "dd/MM/yyyy" }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fechaFin">
+                <th mat-header-cell *matHeaderCellDef>Fehca fin</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.fechaFin | date : "dd/MM/yyyy" }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="opciones">
+                <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    class="btn btn-danger btn-sm mr-2"
+                    (click)="eliminarMencionReconocimiento(element)"
+                    #tooltip="matTooltip"
+                    matTooltip="Borrar"
+                    matTooltipPosition="above"
+                  >
+                    <i class="fa-solid fa-trash fa-xs"></i>
+                  </button>
+                  <button
+                    class="btn btn-info btn-sm"
+                    (click)="editarFormulario(element)"
+                    #tooltip="matTooltip"
+                    matTooltip="Editar"
+                    matTooltipPosition="above"
+                  >
+                    <i class="fa-solid fa-pencil fa-xs"></i>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator
+              [pageSizeOptions]="[10, 20, 30]"
+              showFirstLastButtons
+            ></mat-paginator>
+          </fieldset>
+          <fieldset class="scheduler-border shadow-sm">
+            <legend class="scheduler-border font-usco-vt">
+              Idiomas que domina
+            </legend>
+            <div class="row text-right mb-2">
+              <div class="col">
+                <button class="btn btn-usco-vt" (click)="registrarFormulario()">
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+            <table
+              mat-table
+              [dataSource]="dataSource"
+              class="table table-hover shadow"
+            >
+              <ng-container matColumnDef="index">
+                <th mat-header-cell *matHeaderCellDef>N°</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element; let i = index"
+                  class="font-sm-usco"
+                >
+                  {{ dataSource.filteredData.indexOf(element) + 1 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="cargo">
+                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                <td mat-cell *matCellDef="let element" class="font-sm-usco">
+                  {{ element.cargo }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="funcion">
+                <th mat-header-cell *matHeaderCellDef>Función</th>
+                <td mat-cell *matCellDef="let element" class="font-sm-usco">
+                  {{ element.funcion }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="empresa">
+                <th style="width: 20%" mat-header-cell *matHeaderCellDef>
+                  Empresa
+                </th>
+                <td mat-cell *matCellDef="let element" class="font-sm-usco">
+                  {{ element.empresa }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fechaInicio">
+                <th mat-header-cell *matHeaderCellDef>Fehca inicio</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.fechaInicio | date : "dd/MM/yyyy" }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fechaFin">
+                <th mat-header-cell *matHeaderCellDef>Fehca fin</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.fechaFin | date : "dd/MM/yyyy" }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="opciones">
+                <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    class="btn btn-danger btn-sm mr-2"
+                    (click)="eliminarMencionReconocimiento(element)"
+                    #tooltip="matTooltip"
+                    matTooltip="Borrar"
+                    matTooltipPosition="above"
+                  >
+                    <i class="fa-solid fa-trash fa-xs"></i>
+                  </button>
+                  <button
+                    class="btn btn-info btn-sm"
+                    (click)="editarFormulario(element)"
+                    #tooltip="matTooltip"
+                    matTooltip="Editar"
+                    matTooltipPosition="above"
+                  >
+                    <i class="fa-solid fa-pencil fa-xs"></i>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator
+              [pageSizeOptions]="[10, 20, 30]"
+              showFirstLastButtons
+            ></mat-paginator>
+          </fieldset>
+          <fieldset class="scheduler-border shadow-sm">
+            <legend class="scheduler-border font-usco-vt">
+              Programas de informática que domina
+            </legend>
+            <div class="row text-right mb-2">
+              <div class="col">
+                <button class="btn btn-usco-vt" (click)="registrarFormulario()">
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+            <table
+              mat-table
+              [dataSource]="dataSource"
+              class="table table-hover shadow"
+            >
+              <ng-container matColumnDef="index">
+                <th mat-header-cell *matHeaderCellDef>N°</th>
+                <td
+                  mat-cell
+                  *matCellDef="let element; let i = index"
+                  class="font-sm-usco"
+                >
+                  {{ dataSource.filteredData.indexOf(element) + 1 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="cargo">
+                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                <td mat-cell *matCellDef="let element" class="font-sm-usco">
+                  {{ element.cargo }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="funcion">
+                <th mat-header-cell *matHeaderCellDef>Función</th>
+                <td mat-cell *matCellDef="let element" class="font-sm-usco">
+                  {{ element.funcion }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="empresa">
+                <th style="width: 20%" mat-header-cell *matHeaderCellDef>
+                  Empresa
+                </th>
+                <td mat-cell *matCellDef="let element" class="font-sm-usco">
+                  {{ element.empresa }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fechaInicio">
+                <th mat-header-cell *matHeaderCellDef>Fehca inicio</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.fechaInicio | date : "dd/MM/yyyy" }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fechaFin">
+                <th mat-header-cell *matHeaderCellDef>Fehca fin</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.fechaFin | date : "dd/MM/yyyy" }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="opciones">
+                <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    class="btn btn-danger btn-sm mr-2"
+                    (click)="eliminarMencionReconocimiento(element)"
+                    #tooltip="matTooltip"
+                    matTooltip="Borrar"
+                    matTooltipPosition="above"
+                  >
+                    <i class="fa-solid fa-trash fa-xs"></i>
+                  </button>
+                  <button
+                    class="btn btn-info btn-sm"
+                    (click)="editarFormulario(element)"
+                    #tooltip="matTooltip"
+                    matTooltip="Editar"
+                    matTooltipPosition="above"
+                  >
+                    <i class="fa-solid fa-pencil fa-xs"></i>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator
+              [pageSizeOptions]="[10, 20, 30]"
+              showFirstLastButtons
+            ></mat-paginator>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,11 +15,42 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { TokenComponent } from './components/token/token.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
+import { EncuestaEgresadoComponent } from './components/encuesta-egresado/encuesta-egresado.component';
+import {
+  DatosPersonalesComponent,
+  ModalContacto,
+  ModalExpedicion,
+  ModalResidencia,
+} from './components/encuesta-egresado/datos-personales/datos-personales.component';
+import {
+  ExperienciaLaboralComponent,
+  ModalExperienciaLaboral,
+} from './components/encuesta-egresado/experiencia-laboral/experiencia-laboral.component';
+import {
+  InformacionAcademicaComponent,
+  ModalHabilidadInformatica,
+} from './components/encuesta-egresado/informacion-academica/informacion-academica.component';
+import { PerfilProfesionalComponent } from './components/encuesta-egresado/perfil-profesional/perfil-profesional.component';
 
 registerLocaleData(localeEsCO, 'es-CO');
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, TokenComponent, NavbarComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    TokenComponent,
+    NavbarComponent,
+    EncuestaEgresadoComponent,
+    DatosPersonalesComponent,
+    ExperienciaLaboralComponent,
+    InformacionAcademicaComponent,
+    PerfilProfesionalComponent,
+    ModalContacto,
+    ModalExpedicion,
+    ModalResidencia,
+    ModalExperienciaLaboral,
+    ModalHabilidadInformatica,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -28,6 +59,13 @@ registerLocaleData(localeEsCO, 'es-CO');
     MaterialModules,
     AppRoutingModule,
     BrowserAnimationsModule,
+  ],
+  entryComponents: [
+    ModalContacto,
+    ModalExpedicion,
+    ModalResidencia,
+    ModalExperienciaLaboral,
+    ModalHabilidadInformatica,
   ],
   providers: [
     DatePipe,
