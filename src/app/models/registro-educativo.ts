@@ -14,7 +14,6 @@ export class RegistroEducativo {
   municipioCodigo!: number;
   municipio!: string;
   fechaFin!: Date;
-  finalizadoCodigo!: number;
   finalizado!: number;
   estado!: number;
 }

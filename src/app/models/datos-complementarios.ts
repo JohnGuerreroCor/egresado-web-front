@@ -6,4 +6,5 @@ export class DatosComplementarios {
   programa!: string;
   modalidad!: string;
   perfilProfesional!: string;
+  fechaGrado!: Date;
 }

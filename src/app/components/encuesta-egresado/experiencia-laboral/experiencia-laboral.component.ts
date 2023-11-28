@@ -10,7 +10,6 @@ import { GraduadoService } from 'src/app/services/graduado.service';
 import { FotoService } from 'src/app/services/foto.service';
 import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
-import { MencionReconocimiento } from 'src/app/models/mencion-reconocimiento';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';

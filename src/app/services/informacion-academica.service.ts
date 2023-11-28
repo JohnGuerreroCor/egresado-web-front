@@ -166,4 +166,34 @@ export class InformacionAcademicaService {
       { headers: this.aggAutorizacionHeader() }
     );
   }
+
+  registrarDatosComplementarios(
+    datosComplementarios: DatosComplementarios
+  ): Observable<number> {
+    return this.http.put<number>(
+      `${this.url}/registrar-datos-complementarios`,
+      datosComplementarios,
+      { headers: this.aggAutorizacionHeader() }
+    );
+  }
+
+  actualizarDatosComplementarios(
+    datosComplementarios: DatosComplementarios
+  ): Observable<number> {
+    return this.http.put<number>(
+      `${this.url}/actualizar-datos-complementarios`,
+      datosComplementarios,
+      { headers: this.aggAutorizacionHeader() }
+    );
+  }
+
+  actualizarRegistroEgresado(
+    datosComplementarios: DatosComplementarios
+  ): Observable<number> {
+    return this.http.put<number>(
+      `${this.url}/actualizar-registro-egresado`,
+      datosComplementarios,
+      { headers: this.aggAutorizacionHeader() }
+    );
+  }
 }

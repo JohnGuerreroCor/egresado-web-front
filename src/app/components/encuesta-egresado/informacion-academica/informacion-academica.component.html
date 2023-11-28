@@ -43,35 +43,42 @@
                 </td>
               </ng-container>
               <ng-container matColumnDef="estudio">
-                <th mat-header-cell *matHeaderCellDef>Estudio</th>
+                <th style="width: 20%" mat-header-cell *matHeaderCellDef>
+                  Estudio
+                </th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
-                  {{ element.cargo }}
+                  {{ element.titulo }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="nivel">
                 <th mat-header-cell *matHeaderCellDef>Nivel de formación</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
-                  {{ element.funcion }}
+                  {{ element.nivelAcademico }}
                 </td>
               </ng-container>
-              <ng-container matColumnDef="titulo">
-                <th style="width: 20%" mat-header-cell *matHeaderCellDef>
-                  Título
-                </th>
+              <ng-container matColumnDef="municipio">
+                <th mat-header-cell *matHeaderCellDef>Título</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
-                  {{ element.empresa }}
+                  {{ element.municipio }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="entidad">
                 <th mat-header-cell *matHeaderCellDef>Entidad</th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.fechaInicio | date : "dd/MM/yyyy" }}
+                  {{ element.institucion }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="fecha">
                 <th mat-header-cell *matHeaderCellDef>Fecha</th>
                 <td mat-cell *matCellDef="let element">
                   {{ element.fechaFin | date : "dd/MM/yyyy" }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="finalizado">
+                <th mat-header-cell *matHeaderCellDef>Finalizado</th>
+                <td mat-cell *matCellDef="let element">
+                  <span *ngIf="element.finalizado == 1">SI</span>
+                  <span *ngIf="element.finalizado == 2">NO</span>
                 </td>
               </ng-container>
               <ng-container matColumnDef="opciones">
@@ -144,27 +151,25 @@
               <ng-container matColumnDef="idioma">
                 <th mat-header-cell *matHeaderCellDef>Idioma</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
-                  {{ element.cargo }}
+                  {{ element.nombre }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="conversacion">
                 <th mat-header-cell *matHeaderCellDef>Conversación</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
-                  {{ element.funcion }}
+                  {{ element.conversacion }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="escritura">
-                <th style="width: 20%" mat-header-cell *matHeaderCellDef>
-                  Escritura
-                </th>
+                <th mat-header-cell *matHeaderCellDef>Escritura</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
-                  {{ element.empresa }}
+                  {{ element.escritura }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="lectura">
                 <th mat-header-cell *matHeaderCellDef>Lectura</th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.fechaInicio | date : "dd/MM/yyyy" }}
+                  {{ element.lectura }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="opciones">
@@ -172,7 +177,7 @@
                 <td mat-cell *matCellDef="let element">
                   <button
                     class="btn btn-danger btn-sm mr-2"
-                    (click)="eliminarRegistroEducativo(element)"
+                    (click)="eliminarIdioma(element)"
                     #tooltip="matTooltip"
                     matTooltip="Borrar"
                     matTooltipPosition="above"
@@ -238,13 +243,13 @@
               <ng-container matColumnDef="programa">
                 <th mat-header-cell *matHeaderCellDef>Programa</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
-                  {{ element.cargo }}
+                  {{ element.nombrePrograma }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="dominio">
                 <th mat-header-cell *matHeaderCellDef>Dominio</th>
                 <td mat-cell *matCellDef="let element" class="font-sm-usco">
-                  {{ element.funcion }}
+                  {{ element.dominio }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="opciones">
@@ -252,7 +257,7 @@
                 <td mat-cell *matCellDef="let element">
                   <button
                     class="btn btn-danger btn-sm mr-2"
-                    (click)="eliminarRegistroEducativo(element)"
+                    (click)="eliminarHabilidadInformatica(element)"
                     #tooltip="matTooltip"
                     matTooltip="Borrar"
                     matTooltipPosition="above"

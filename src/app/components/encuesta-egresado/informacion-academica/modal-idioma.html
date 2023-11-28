@@ -9,13 +9,19 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Idiomas</mat-label>
-              <input required matInput type="text" formControlName="cargo" />
+              <input required matInput type="text" formControlName="idioma" />
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Conversación</mat-label>
-              <input required matInput type="text" formControlName="cargo" />
+              <mat-select formControlName="conversacion">
+                <mat-option value="1">EXCELENTE</mat-option>
+                <mat-option value="2">BUENO</mat-option>
+                <mat-option value="3">REGULAR</mat-option>
+                <mat-option value="4">MALO</mat-option>
+                <mat-option value="5">DEFICIENTE</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
         </div>
@@ -23,13 +29,25 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Escritura</mat-label>
-              <input required matInput type="text" formControlName="funcion" />
+              <mat-select formControlName="escritura">
+                <mat-option value="1">EXCELENTE</mat-option>
+                <mat-option value="2">BUENO</mat-option>
+                <mat-option value="3">REGULAR</mat-option>
+                <mat-option value="4">MALO</mat-option>
+                <mat-option value="5">DEFICIENTE</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Lectura</mat-label>
-              <input required matInput type="text" formControlName="funcion" />
+              <mat-select formControlName="lectura">
+                <mat-option value="1">EXCELENTE</mat-option>
+                <mat-option value="2">BUENO</mat-option>
+                <mat-option value="3">REGULAR</mat-option>
+                <mat-option value="4">MALO</mat-option>
+                <mat-option value="5">DEFICIENTE</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
         </div>

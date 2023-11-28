@@ -30,7 +30,7 @@
           </div>
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Fecha de inicio (Día/Mes/Año)</mat-label>
+              <mat-label>Fecha de finalización (Día/Mes/Año)</mat-label>
               <input
                 matInput
                 [matDatepicker]="picker1"
@@ -45,6 +45,50 @@
           </div>
         </div>
         <div class="row">
+          <div class="col text-left">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>País</mat-label>
+              <mat-select formControlName="pais">
+                <mat-option
+                  *ngFor="let pais of listadoPaises"
+                  [value]="pais.codigo"
+                  (click)="obtenerDepartamentos(pais.codigo)"
+                  >{{ pais.nombre | uppercase }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col text-left">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Departamento</mat-label>
+              <mat-select formControlName="departamento">
+                <mat-option
+                  *ngFor="
+                    let departamento of listadoDepartamento
+                  "
+                  [value]="departamento.codigo"
+                  (click)="obtenerMunicipios(departamento.codigo)"
+                  >{{ departamento.nombre }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col text-left">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Ciudad</mat-label>
+              <mat-select formControlName="municipio">
+                <mat-option
+                  *ngFor="
+                    let municipio of listadoMunicipio
+                  "
+                  [value]="municipio.codigo"
+                  >{{ municipio.nombre }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Entidad</mat-label>
@@ -54,7 +98,10 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Título obtenido</mat-label>
-              <input required matInput type="text" formControlName="obtenido" />
+              <mat-select formControlName="obtenido">
+                <mat-option value="1">SI</mat-option>
+                <mat-option value="2">NO</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
         </div>

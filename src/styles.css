@@ -423,12 +423,16 @@ input[type="number"] {
   );
 }
 
-/* .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
-  padding-top: 4px !important;
-  padding-bottom: 4px !important;
+.btn-flotante-usco {
+  position: fixed;
+  bottom: 20px;
+  right: 17px;
+  background-color: #1e262b;
+  color: #ffffff;
+  border: none;
+  border-radius: 10%;
+  padding: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 9999;
 }
-
-.mat-mdc-form-field-infix {
-  min-height: 12px !important;
-}
- */

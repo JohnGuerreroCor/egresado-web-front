@@ -10,7 +10,6 @@ import { GraduadoService } from 'src/app/services/graduado.service';
 import { FotoService } from 'src/app/services/foto.service';
 import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
-import { MencionReconocimiento } from 'src/app/models/mencion-reconocimiento';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -48,9 +47,10 @@ export class InformacionAcademicaComponent {
     'index',
     'estudio',
     'nivel',
-    'titulo',
+    'municipio',
     'entidad',
     'fecha',
+    'finalizado',
     'opciones',
   ];
   @ViewChild('MatPaginatorRegistroEducativo', { static: false })
@@ -134,7 +134,7 @@ export class InformacionAcademicaComponent {
 
   registrarFormularioEstudiosRealizados(): void {
     this.dialogRef = this.dialog.open(ModalEstudiosRealizados, {
-      width: '50%',
+      width: '70%',
       disableClose: true,
     });
     this.dialogRef.afterClosed().subscribe(() => {
@@ -144,7 +144,7 @@ export class InformacionAcademicaComponent {
 
   editarFormularioEstudiosRealizados(element: any): void {
     this.dialogRef = this.dialog.open(ModalEstudiosRealizados, {
-      width: '50%',
+      width: '70%',
       disableClose: true,
       data: { registroEducativo: element },
     });
@@ -197,6 +197,8 @@ export class InformacionAcademicaComponent {
 
   onModalClosed() {
     this.obtenerRegistroEducativo();
+    this.obtenerIdiomas();
+    this.obtenerHabilidadesInformatica();
   }
 
   actualizarRegistroEducativo(registroEducativo: RegistroEducativo) {
@@ -379,6 +381,7 @@ export class ModalEstudiosRealizados {
     if (this.authService.validacionToken()) {
       this.obtenerNivelesFormacion();
       this.crearFormulario();
+      this.obtenerPais();
       if (JSON.stringify(data) !== 'null') {
         this.editarRegistroEducativo(data.registroEducativo);
       }
@@ -445,7 +448,7 @@ export class ModalEstudiosRealizados {
     registroEducativo.institucion = this.formulario.get('entidad')!.value;
     registroEducativo.municipioCodigo = this.formulario.get('municipio')!.value;
     registroEducativo.fechaFin = this.formulario.get('fecha')!.value;
-    registroEducativo.finalizadoCodigo = this.formulario.get('obtenido')!.value;
+    registroEducativo.finalizado = this.formulario.get('obtenido')!.value;
     registroEducativo.estado = this.formulario.get('estado')!.value;
     if (this.editar) {
       this.actualizar(registroEducativo);
@@ -508,11 +511,16 @@ export class ModalEstudiosRealizados {
     this.formulario
       .get('nivelFormacion')!
       .setValue(element.nivelAcademicoCodigo);
+    this.formulario.get('pais')!.setValue(element.paisCodigo);
+    this.obtenerDepartamentos(element.paisCodigo);
+    this.formulario.get('departamento')!.setValue(element.departamentoCodigo);
+    this.obtenerMunicipios(element.departamentoCodigo);
     this.formulario.get('municipio')!.setValue(element.municipioCodigo);
+
     this.formulario.get('entidad')!.setValue(element.institucion);
     let fechaFin = new Date(element.fechaFin + ' 0:00:00');
     this.formulario.get('fecha')!.setValue(fechaFin);
-    this.formulario.get('obtenido')!.setValue(element.finalizadoCodigo);
+    this.formulario.get('obtenido')!.setValue('' + element.finalizado);
     this.formulario.get('estado')!.setValue(element.estado);
   }
 
@@ -564,31 +572,25 @@ export class ModalEstudiosRealizados {
   styleUrls: ['./informacion-academica.component.css'],
 })
 export class ModalIdioma {
-  listadoAmbitos: Ambito[] = [];
-  listadoPaises: Pais[] = [];
-  listadoDepartamento: Departamento[] = [];
-  listadoMunicipio: Municipio[] = [];
   editar: boolean = false;
 
   formulario!: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<ModalHabilidadInformatica>,
+    public dialogRef: MatDialogRef<ModalIdioma>,
     public dialog: MatDialog,
     public authService: AuthService,
     public graduadoService: GraduadoService,
     private formBuilder: FormBuilder,
     public fotoService: FotoService,
-    public historialLaboralService: HistorialLaboralService,
-    public ubicacionService: UbicacionService,
+    public informacionAcademicaService: InformacionAcademicaService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     if (this.authService.validacionToken()) {
-      this.obtenerPais();
       this.crearFormulario();
       if (JSON.stringify(data) !== 'null') {
-        this.editarHistorialLaboral(data.historialLaboral);
+        this.editarIdioma(data.idioma);
       }
     }
   }
@@ -597,37 +599,12 @@ export class ModalIdioma {
     this.formulario = this.formBuilder.group({
       codigo: new FormControl(''),
       personaCodigo: new FormControl(''),
-      cargo: new FormControl('', Validators.required),
-      funcion: new FormControl('', Validators.required),
-      empresa: new FormControl('', Validators.required),
-      fechaInicio: new FormControl('', Validators.required),
-      fechaFin: new FormControl('', Validators.required),
+      idioma: new FormControl('', Validators.required),
+      conversacion: new FormControl('', Validators.required),
+      escritura: new FormControl('', Validators.required),
+      lectura: new FormControl('', Validators.required),
       estado: new FormControl(''),
     });
-  }
-
-  obtenerPais() {
-    this.ubicacionService.obtenerPaises().subscribe((data) => {
-      this.listadoPaises = data;
-    });
-  }
-
-  obtenerDepartamentos(element: number) {
-    this.listadoDepartamento = [];
-    this.ubicacionService
-      .obtenerDepartamentosPorPais(element)
-      .subscribe((data) => {
-        this.listadoDepartamento = data;
-      });
-  }
-
-  obtenerMunicipios(element: number) {
-    this.listadoMunicipio = [];
-    this.ubicacionService
-      .obtenerMunicipiosPorDepartamento(element)
-      .subscribe((data) => {
-        this.listadoMunicipio = data;
-      });
   }
 
   onNoClick(): void {
@@ -635,24 +612,23 @@ export class ModalIdioma {
   }
 
   generar(): void {
-    let historialLaboral: HistorialLaboral = new HistorialLaboral();
-    historialLaboral.codigo = this.formulario.get('codigo')!.value;
-    historialLaboral.personaCodigo = this.authService.user.per_codigo;
-    historialLaboral.cargo = this.formulario.get('cargo')!.value;
-    historialLaboral.funcion = this.formulario.get('funcion')!.value;
-    historialLaboral.empresa = this.formulario.get('empresa')!.value;
-    historialLaboral.fechaInicio = this.formulario.get('fechaInicio')!.value;
-    historialLaboral.fechaFin = this.formulario.get('fechaFin')!.value;
-    historialLaboral.estado = this.formulario.get('estado')!.value;
+    let idioma: Idioma = new Idioma();
+    idioma.codigo = this.formulario.get('codigo')!.value;
+    idioma.personaCodigo = this.authService.user.per_codigo;
+    idioma.nombre = this.formulario.get('idioma')!.value;
+    idioma.conversacionCodigo = this.formulario.get('conversacion')!.value;
+    idioma.escrituraCodigo = this.formulario.get('escritura')!.value;
+    idioma.lecturaCodigo = this.formulario.get('lectura')!.value;
+    idioma.estado = this.formulario.get('estado')!.value;
     if (this.editar) {
-      this.actualizar(historialLaboral);
+      this.actualizar(idioma);
     } else {
-      this.registrar(historialLaboral);
+      this.registrar(idioma);
     }
   }
 
-  registrar(historialLaboral: HistorialLaboral) {
-    this.historialLaboralService.registrar(historialLaboral).subscribe(
+  registrar(idioma: Idioma) {
+    this.informacionAcademicaService.registrarIdioma(idioma).subscribe(
       (data) => {
         if (data > 0) {
           Swal.fire({
@@ -673,8 +649,8 @@ export class ModalIdioma {
     );
   }
 
-  actualizar(historialLaboral: HistorialLaboral) {
-    this.historialLaboralService.actualizar(historialLaboral).subscribe(
+  actualizar(idioma: Idioma) {
+    this.informacionAcademicaService.actualizarIdioma(idioma).subscribe(
       (data) => {
         if (data > 0) {
           Swal.fire({
@@ -693,24 +669,22 @@ export class ModalIdioma {
     );
   }
 
-  editarHistorialLaboral(element: HistorialLaboral) {
+  editarIdioma(element: Idioma) {
     this.editar = true;
     this.formulario.get('codigo')!.setValue(element.codigo);
     this.formulario.get('personaCodigo')!.setValue(element.personaCodigo);
-    this.formulario.get('cargo')!.setValue(element.cargo);
-    this.formulario.get('funcion')!.setValue(element.funcion);
-    this.formulario.get('empresa')!.setValue(element.empresa);
-    let fechaInicio = new Date(element.fechaInicio + ' 0:00:00');
-    this.formulario.get('fechaInicio')!.setValue(fechaInicio);
-    let fechaFin = new Date(element.fechaFin + ' 0:00:00');
-    this.formulario.get('fechaFin')!.setValue(fechaFin);
+    this.formulario.get('idioma')!.setValue(element.nombre);
+    this.formulario
+      .get('conversacion')!
+      .setValue('' + element.conversacionCodigo);
+    this.formulario.get('escritura')!.setValue('' + element.escrituraCodigo);
+    this.formulario.get('lectura')!.setValue('' + element.lecturaCodigo);
     this.formulario.get('estado')!.setValue(element.estado);
   }
 
   cancelar() {
     this.formulario.reset();
     this.crearFormulario();
-    this.obtenerPais();
     this.editar = false;
   }
 
@@ -755,10 +729,6 @@ export class ModalIdioma {
   styleUrls: ['./informacion-academica.component.css'],
 })
 export class ModalHabilidadInformatica {
-  listadoAmbitos: Ambito[] = [];
-  listadoPaises: Pais[] = [];
-  listadoDepartamento: Departamento[] = [];
-  listadoMunicipio: Municipio[] = [];
   editar: boolean = false;
 
   formulario!: FormGroup;
@@ -770,16 +740,14 @@ export class ModalHabilidadInformatica {
     public graduadoService: GraduadoService,
     private formBuilder: FormBuilder,
     public fotoService: FotoService,
-    public historialLaboralService: HistorialLaboralService,
-    public ubicacionService: UbicacionService,
+    public informacionAcademicaService: InformacionAcademicaService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     if (this.authService.validacionToken()) {
-      this.obtenerPais();
       this.crearFormulario();
       if (JSON.stringify(data) !== 'null') {
-        this.editarHistorialLaboral(data.historialLaboral);
+        this.editarHistorialLaboral(data.habilidadInformatica);
       }
     }
   }
@@ -788,37 +756,10 @@ export class ModalHabilidadInformatica {
     this.formulario = this.formBuilder.group({
       codigo: new FormControl(''),
       personaCodigo: new FormControl(''),
-      cargo: new FormControl('', Validators.required),
-      funcion: new FormControl('', Validators.required),
-      empresa: new FormControl('', Validators.required),
-      fechaInicio: new FormControl('', Validators.required),
-      fechaFin: new FormControl('', Validators.required),
+      programa: new FormControl('', Validators.required),
+      dominio: new FormControl('', Validators.required),
       estado: new FormControl(''),
     });
-  }
-
-  obtenerPais() {
-    this.ubicacionService.obtenerPaises().subscribe((data) => {
-      this.listadoPaises = data;
-    });
-  }
-
-  obtenerDepartamentos(element: number) {
-    this.listadoDepartamento = [];
-    this.ubicacionService
-      .obtenerDepartamentosPorPais(element)
-      .subscribe((data) => {
-        this.listadoDepartamento = data;
-      });
-  }
-
-  obtenerMunicipios(element: number) {
-    this.listadoMunicipio = [];
-    this.ubicacionService
-      .obtenerMunicipiosPorDepartamento(element)
-      .subscribe((data) => {
-        this.listadoMunicipio = data;
-      });
   }
 
   onNoClick(): void {
@@ -826,82 +767,78 @@ export class ModalHabilidadInformatica {
   }
 
   generar(): void {
-    let historialLaboral: HistorialLaboral = new HistorialLaboral();
-    historialLaboral.codigo = this.formulario.get('codigo')!.value;
-    historialLaboral.personaCodigo = this.authService.user.per_codigo;
-    historialLaboral.cargo = this.formulario.get('cargo')!.value;
-    historialLaboral.funcion = this.formulario.get('funcion')!.value;
-    historialLaboral.empresa = this.formulario.get('empresa')!.value;
-    historialLaboral.fechaInicio = this.formulario.get('fechaInicio')!.value;
-    historialLaboral.fechaFin = this.formulario.get('fechaFin')!.value;
-    historialLaboral.estado = this.formulario.get('estado')!.value;
+    let habilidadInformatica: HabilidadInformatica = new HabilidadInformatica();
+    habilidadInformatica.codigo = this.formulario.get('codigo')!.value;
+    habilidadInformatica.personaCodigo = this.authService.user.per_codigo;
+    habilidadInformatica.nombrePrograma =
+      this.formulario.get('programa')!.value;
+    habilidadInformatica.dominioCodigo = this.formulario.get('dominio')!.value;
+    habilidadInformatica.estado = this.formulario.get('estado')!.value;
     if (this.editar) {
-      this.actualizar(historialLaboral);
+      this.actualizar(habilidadInformatica);
     } else {
-      this.registrar(historialLaboral);
+      this.registrar(habilidadInformatica);
     }
   }
 
-  registrar(historialLaboral: HistorialLaboral) {
-    this.historialLaboralService.registrar(historialLaboral).subscribe(
-      (data) => {
-        if (data > 0) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Registrado',
-            text: '¡Operación exitosa!',
-            showConfirmButton: false,
-            timer: 2500,
-          });
-          this.cancelar();
-          this.dialogRef.close();
-          this.crearFormulario();
-        } else {
-          this.mensajeError();
-        }
-      },
-      (err) => this.fError(err)
-    );
+  registrar(habilidadInformatica: HabilidadInformatica) {
+    this.informacionAcademicaService
+      .registrarHabilidadInformatica(habilidadInformatica)
+      .subscribe(
+        (data) => {
+          if (data > 0) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Registrado',
+              text: '¡Operación exitosa!',
+              showConfirmButton: false,
+              timer: 2500,
+            });
+            this.cancelar();
+            this.dialogRef.close();
+            this.crearFormulario();
+          } else {
+            this.mensajeError();
+          }
+        },
+        (err) => this.fError(err)
+      );
   }
 
-  actualizar(historialLaboral: HistorialLaboral) {
-    this.historialLaboralService.actualizar(historialLaboral).subscribe(
-      (data) => {
-        if (data > 0) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Actualizado',
-            text: '¡Operación exitosa!',
-            showConfirmButton: false,
-          });
-          this.dialogRef.close();
-          this.cancelar();
-        } else {
-          this.mensajeError();
-        }
-      },
-      (err) => this.fError(err)
-    );
+  actualizar(habilidadInformatica: HabilidadInformatica) {
+    this.informacionAcademicaService
+      .actualizarHabilidadInformatica(habilidadInformatica)
+      .subscribe(
+        (data) => {
+          if (data > 0) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Actualizado',
+              text: '¡Operación exitosa!',
+              showConfirmButton: false,
+            });
+            this.dialogRef.close();
+            this.cancelar();
+          } else {
+            this.mensajeError();
+          }
+        },
+        (err) => this.fError(err)
+      );
   }
 
-  editarHistorialLaboral(element: HistorialLaboral) {
+  editarHistorialLaboral(element: HabilidadInformatica) {
     this.editar = true;
     this.formulario.get('codigo')!.setValue(element.codigo);
     this.formulario.get('personaCodigo')!.setValue(element.personaCodigo);
-    this.formulario.get('cargo')!.setValue(element.cargo);
-    this.formulario.get('funcion')!.setValue(element.funcion);
-    this.formulario.get('empresa')!.setValue(element.empresa);
-    let fechaInicio = new Date(element.fechaInicio + ' 0:00:00');
-    this.formulario.get('fechaInicio')!.setValue(fechaInicio);
-    let fechaFin = new Date(element.fechaFin + ' 0:00:00');
-    this.formulario.get('fechaFin')!.setValue(fechaFin);
+    this.formulario.get('programa')!.setValue(element.nombrePrograma);
+    this.formulario.get('dominio')!.setValue('' + element.dominioCodigo);
     this.formulario.get('estado')!.setValue(element.estado);
   }
 
   cancelar() {
     this.formulario.reset();
     this.crearFormulario();
-    this.obtenerPais();
     this.editar = false;
   }
 

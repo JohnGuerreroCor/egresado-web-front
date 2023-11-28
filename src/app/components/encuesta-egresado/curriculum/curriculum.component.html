@@ -1,0 +1,321 @@
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Para lograr una impresión óptima del documento</strong>, le
+  recomendamos habilitar la opción de gráficos de fondo y utilizar el navegador
+  Chrome. En caso que la información no aparezca reflejada por refresque la
+  pestaña.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="container text-center mt-3">
+  <button
+    *ngIf="(listadoDatosPersonales | json) != '[]'"
+    class="btn-flotante-usco"
+    [useExistingCss]="true"
+    [printTitle]="
+      'Curriculum ' +
+      (listadoDatosPersonales[0]!.nombre | titlecase) +
+      ' ' +
+      (listadoDatosPersonales[0]!.apellido | titlecase)
+    "
+    printSectionId="print-section"
+    ngxPrint
+  >
+    <i class="fa-solid fa-print"></i> Imprimir
+  </button>
+  <div class="card mt-2 mb-4" id="print-section">
+    <div class="card-body text-left" id="curriculum" style="height: 1500px">
+      <div class="row">
+        <div class="col pl-5 pr-5 pt-4 pb-5">
+          <div class="row">
+            <div
+              class="col text-white"
+              style="background-color: #1e262b; border: 15px solid white"
+            >
+              <div class="row pb-2">
+                <div class="col-sm-2 p-4">
+                  <img
+                    *ngIf="foto.url != ''"
+                    [src]="foto.url"
+                    alt="usco"
+                    class="ml-3"
+                    style="
+                      width: 150px;
+                      border: 2px solid white;
+                      border-radius: 10px;
+                    "
+                  />
+                  <img
+                    *ngIf="foto.url == ''"
+                    src="assets/precarga-usco.gif"
+                    alt="usco"
+                    style="
+                      width: 150px;
+                      border: 2px solid white;
+                      border-radius: 10px;
+                    "
+                  />
+                </div>
+                <div class="col ml-5 pt-4">
+                  <div class="row">
+                    <div class="col">
+                      <h2>
+                        <span *ngIf="(listadoDatosPersonales | json) != '[]'">
+                          {{ listadoDatosPersonales[0].nombre | titlecase }}
+                          {{
+                            listadoDatosPersonales[0].apellido | titlecase
+                          }}</span
+                        >
+                      </h2>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col">
+                      <h3>
+                        <span *ngIf="(datosComplementarios | json) != '[]'">
+                          {{
+                            datosComplementarios[0].programa | titlecase
+                          }}</span
+                        >
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col">
+                      <h6>
+                        <span *ngIf="(listadoDatosPersonales | json) != '[]'">
+                          <i class="fa-solid fa-envelope"></i>
+                          {{ listadoDatosPersonales[0].emailPersonal }}</span
+                        >
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-sm-3 text-white">
+              <div class="row">
+                <div class="col"><h6>CONTACTO</h6></div>
+              </div>
+              <!-- <div class="row mt-2">
+                <div class="col">
+                  <small style="font-size: 10px">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span *ngIf="(listadoDatosPersonales | json) != '[]'">
+                      {{ listadoDatosPersonales[0].emailPersonal }}</span
+                    >
+                  </small>
+                </div>
+              </div> -->
+              <div class="row mt-2">
+                <div class="col">
+                  <small
+                    ><i class="fa-solid fa-phone-flip"></i>
+                    <span *ngIf="(listadoDatosPersonales | json) != '[]'">
+                      {{ listadoDatosPersonales[0].telefonoMovil }}</span
+                    >
+                  </small>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <small
+                    ><i class="fa-solid fa-location-dot"></i>
+                    <span *ngIf="(listadoDatosPersonales | json) != '[]'">
+                      {{
+                        listadoDatosPersonales[0].municipioResidencia
+                          | titlecase
+                      }},
+                      {{
+                        listadoDatosPersonales[0].departamentoResidencia
+                          | titlecase
+                      }}</span
+                    ></small
+                  >
+                </div>
+              </div>
+              <div class="row mt-2 mb-4">
+                <div class="col">
+                  <small
+                    ><i class="fa-solid fa-house"></i>
+                    <span *ngIf="(listadoDatosPersonales | json) != '[]'">
+                      {{
+                        listadoDatosPersonales[0].direccion | titlecase
+                      }}</span
+                    ></small
+                  >
+                </div>
+              </div>
+              <hr style="border-color: white" />
+              <div class="row mt-4">
+                <div class="col"><h6>IDIOMAS</h6></div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <ul *ngFor="let item of listadoIdioma">
+                    <li>{{ item.nombre | titlecase }}</li>
+                    <li style="list-style: none" class="pt-2 pb-2">
+                      <div
+                        class="progress"
+                        *ngIf="item.conversacion == 'REGULAR'"
+                      >
+                        <div
+                          class="progress-bar bg-light"
+                          style="width: 50%"
+                        ></div>
+                        <div
+                          class="progress-bar bg-secondary"
+                          style="width: 50%"
+                        ></div>
+                      </div>
+                      <div
+                        class="progress"
+                        *ngIf="item.conversacion == 'BUENO'"
+                      >
+                        <div
+                          class="progress-bar bg-light"
+                          style="width: 75%"
+                        ></div>
+                        <div
+                          class="progress-bar bg-secondary"
+                          style="width: 25%"
+                        ></div>
+                      </div>
+                      <div
+                        class="progress"
+                        *ngIf="item.conversacion == 'EXCELENTE'"
+                      >
+                        <div
+                          class="progress-bar bg-light"
+                          style="width: 100%"
+                        ></div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <hr style="border-color: white" />
+              <div class="row mt-4">
+                <div class="col"><h6>HABILIDADES</h6></div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <ul *ngFor="let item of listadoHabilidadInformatica">
+                    <li>
+                      {{ item.nombrePrograma | titlecase }}
+                    </li>
+                    <li style="list-style: none" class="pt-2 pb-2">
+                      <div class="progress" *ngIf="item.dominio == 'REGULAR'">
+                        <div
+                          class="progress-bar bg-light"
+                          style="width: 50%"
+                        ></div>
+                        <div
+                          class="progress-bar bg-secondary"
+                          style="width: 50%"
+                        ></div>
+                      </div>
+                      <div class="progress" *ngIf="item.dominio == 'BUENO'">
+                        <div
+                          class="progress-bar bg-light"
+                          style="width: 75%"
+                        ></div>
+                        <div
+                          class="progress-bar bg-secondary"
+                          style="width: 25%"
+                        ></div>
+                      </div>
+                      <div class="progress" *ngIf="item.dominio == 'EXCELENTE'">
+                        <div
+                          class="progress-bar bg-light"
+                          style="width: 100%"
+                        ></div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col ml-5">
+              <div class="row">
+                <div class="col">
+                  <fieldset class="scheduler-border shadow-sm">
+                    <legend class="scheduler-border font-usco-vt">
+                      Perfil
+                    </legend>
+                    <p
+                      class="font-usco-default text-justify font-usco-gr font-weight-bold"
+                    >
+                      <span *ngIf="(datosComplementarios | json) != '[]'">
+                        <i>{{
+                          datosComplementarios[0].perfilProfesional
+                        }}</i></span
+                      >
+                    </p>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <fieldset class="scheduler-border shadow-sm">
+                    <legend class="scheduler-border font-usco-vt">
+                      Formación
+                    </legend>
+                    <div class="row">
+                      <div class="col text-left">
+                        <ul *ngFor="let item of listadoRegistroEducativo">
+                          <li>
+                            <strong
+                              >{{ item.titulo | titlecase }} -
+                              {{
+                                item.fechaFin | date : "MMMM y" | titlecase
+                              }}</strong
+                            >
+                          </li>
+                          <li style="list-style: none">
+                            <small
+                              >{{ item.nivelAcademico }} -
+                              {{ item.institucion }}</small
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <fieldset class="scheduler-border shadow-sm">
+                    <legend class="scheduler-border font-usco-vt">
+                      Experiencia laboral
+                    </legend>
+                    <div class="row">
+                      <div class="col text-left">
+                        <ul *ngFor="let item of listadoHistorialLaboral">
+                          <li>
+                            <strong
+                              >{{ item.empresa }} -
+                              {{
+                                item.fechaFin | date : "MMMM y" | titlecase
+                              }}</strong
+                            >
+                          </li>
+                          <li style="list-style: none">
+                            <small>{{ item.cargo }} - {{ item.funcion }}</small>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

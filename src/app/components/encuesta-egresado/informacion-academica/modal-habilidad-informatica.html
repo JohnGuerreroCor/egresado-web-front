@@ -9,13 +9,17 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Programa informático</mat-label>
-              <input required matInput type="text" formControlName="cargo" />
+              <input required matInput type="text" formControlName="programa" />
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Dominio del programa</mat-label>
-              <input required matInput type="text" formControlName="cargo" />
+              <mat-label>Conversación</mat-label>
+              <mat-select formControlName="dominio">
+                <mat-option value="1">EXCELENTE</mat-option>
+                <mat-option value="2">BUENO</mat-option>
+                <mat-option value="3">REGULAR</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
         </div>

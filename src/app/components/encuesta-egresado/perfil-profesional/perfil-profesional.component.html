@@ -12,7 +12,7 @@
     <div class="card-body ls">
       <div class="row">
         <div class="col">
-          <form class="pl-4 pr-4">
+          <form [formGroup]="formulario">
             <fieldset class="scheduler-border shadow-sm">
               <legend class="scheduler-border font-usco-vt">
                 Perfil profesional
@@ -23,8 +23,13 @@
                     class="example-full-width"
                     appearance="outline"
                   >
-                    <mat-label>Profesión</mat-label>
-                    <input required matInput type="text" />
+                    <mat-label>Profesión (Campo automático)</mat-label>
+                    <input
+                      readonly
+                      matInput
+                      type="text"
+                      formControlName="programa"
+                    />
                   </mat-form-field>
                 </div>
                 <div class="col">
@@ -32,22 +37,34 @@
                     class="example-full-width"
                     appearance="outline"
                   >
-                    <mat-label
-                      >Fecha de Grado (DD/MM/AA) (Campo reservado para Registro
-                      y Control Academico)</mat-label
+                    <mat-label>Fecha de Grado (DD/MM/AA) </mat-label>
+                    <input
+                      readonly
+                      matInput
+                      type="text"
+                      formControlName="fechaGrado"
+                    />
+                    <mat-hint
+                      >(Campo reservado para Registro y Control
+                      Academico)</mat-hint
                     >
-                    <input required matInput type="text" />
                   </mat-form-field>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-3">
                 <div class="col">
                   <mat-form-field
                     class="example-full-width"
                     appearance="outline"
                   >
                     <mat-label>Título Trabajo de Grado</mat-label>
-                    <input required matInput type="text" />
+                    <input
+                      required
+                      matInput
+                      type="text"
+                      formControlName="modalidad"
+                      id="modalidad"
+                    />
                   </mat-form-field>
                 </div>
               </div>
@@ -58,12 +75,28 @@
                     appearance="outline"
                   >
                     <mat-label>Descripción</mat-label>
-                    <textarea matInput rows="7"></textarea>
+                    <textarea
+                      matInput
+                      rows="7"
+                      formControlName="perfil"
+                      id="perfil"
+                    ></textarea>
                   </mat-form-field>
                 </div>
               </div>
             </fieldset>
           </form>
+        </div>
+      </div>
+      <div class="row text-right">
+        <div class="col">
+          <button
+            class="btn btn-success"
+            (click)="generar()"
+            [disabled]="!formulario.valid"
+          >
+            <i class="fa-solid fa-floppy-disk"></i> Guardar
+          </button>
         </div>
       </div>
     </div>
