@@ -9,7 +9,14 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Cargo</mat-label>
-              <input required matInput type="text" formControlName="cargo" />
+              <input
+                required
+                #input1
+                maxlength="100"
+                matInput
+                type="text"
+                formControlName="cargo"
+              /><mat-hint align="end">{{ input1.value.length }}/100</mat-hint>
             </mat-form-field>
           </div>
         </div>
@@ -17,7 +24,15 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Función</mat-label>
-              <input required matInput type="text" formControlName="funcion" />
+              <input
+                required
+                #input2
+                maxlength="100"
+                matInput
+                type="text"
+                formControlName="funcion"
+              />
+              <mat-hint align="end">{{ input2.value.length }}/100</mat-hint>
             </mat-form-field>
           </div>
         </div>
@@ -25,7 +40,15 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Empresa</mat-label>
-              <input required matInput type="text" formControlName="empresa" />
+              <input
+                required
+                #input3
+                maxlength="100"
+                matInput
+                type="text"
+                formControlName="empresa"
+              />
+              <mat-hint align="end">{{ input3.value.length }}/100</mat-hint>
             </mat-form-field>
           </div>
         </div>

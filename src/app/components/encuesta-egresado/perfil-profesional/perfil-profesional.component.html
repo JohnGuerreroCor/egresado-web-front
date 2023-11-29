@@ -61,10 +61,15 @@
                     <input
                       required
                       matInput
+                      #input1
+                      maxlength="200"
                       type="text"
                       formControlName="modalidad"
                       id="modalidad"
                     />
+                    <mat-hint align="end"
+                      >{{ input1.value.length }}/200</mat-hint
+                    >
                   </mat-form-field>
                 </div>
               </div>
@@ -78,9 +83,14 @@
                     <textarea
                       matInput
                       rows="7"
+                      #input2
+                      maxlength="500"
                       formControlName="perfil"
                       id="perfil"
                     ></textarea>
+                    <mat-hint align="end"
+                      >{{ input2.value.length }}/500</mat-hint
+                    >
                   </mat-form-field>
                 </div>
               </div>

@@ -9,7 +9,15 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Nombre del estudio</mat-label>
-              <input required matInput type="text" formControlName="titulo" />
+              <input
+                required
+                #input1
+                maxlength="255"
+                matInput
+                type="text"
+                formControlName="titulo"
+              />
+              <mat-hint align="end">{{ input1.value.length }}/255</mat-hint>
             </mat-form-field>
           </div>
         </div>
@@ -92,7 +100,15 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Entidad</mat-label>
-              <input required matInput type="text" formControlName="entidad" />
+              <input
+                required
+                #input2
+                maxlength="255"
+                matInput
+                type="text"
+                formControlName="entidad"
+              />
+              <mat-hint align="end">{{ input2.value.length }}/255</mat-hint>
             </mat-form-field>
           </div>
           <div class="col">

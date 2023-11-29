@@ -9,12 +9,20 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Programa informático</mat-label>
-              <input required matInput type="text" formControlName="programa" />
+              <input
+                required
+                #input1
+                maxlength="100"
+                matInput
+                type="text"
+                formControlName="programa"
+              />
+              <mat-hint align="end">{{ input1.value.length }}/100</mat-hint>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Conversación</mat-label>
+              <mat-label>Dominio</mat-label>
               <mat-select formControlName="dominio">
                 <mat-option value="1">EXCELENTE</mat-option>
                 <mat-option value="2">BUENO</mat-option>

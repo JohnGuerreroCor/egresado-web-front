@@ -9,7 +9,15 @@
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Idiomas</mat-label>
-              <input required matInput type="text" formControlName="idioma" />
+              <input
+                required
+                #input1
+                maxlength="50"
+                matInput
+                type="text"
+                formControlName="idioma"
+              />
+              <mat-hint align="end">{{ input1.value.length }}/50</mat-hint>
             </mat-form-field>
           </div>
           <div class="col">
