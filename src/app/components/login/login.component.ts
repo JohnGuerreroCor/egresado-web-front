@@ -8,7 +8,6 @@ import {
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
-import { WebparametroService } from 'src/app/services/webparametro.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,7 +26,6 @@ export class LoginComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private router: Router,
-    public webparametroService: WebparametroService,
     private formBuilder: FormBuilder
   ) {
     this.usuario = new Usuario();
@@ -63,13 +61,7 @@ export class LoginComponent implements OnInit {
         });
         this.router.navigate(['encuesta-seguimiento']);
       } else {
-        this.webparametroService.obtenerWebParametro().subscribe((data) => {
-          if (data[0].webValor === '1') {
-            this.router.navigate(['/login']);
-          } else {
-            this.router.navigate(['/encuesta-seguimiento']);
-          }
-        });
+        this.router.navigate(['/token']);
       }
     }
   }
@@ -116,13 +108,7 @@ export class LoginComponent implements OnInit {
           },
         });
         // Redirigir al usuario a la página de inicio o de token según el valor del parámetro web
-        this.webparametroService.obtenerWebParametro().subscribe((data) => {
-          if (data[0].webValor === '1') {
-            this.router.navigate(['/token']);
-          } else {
-            this.router.navigate(['/encuesta-seguimiento']);
-          }
-        });
+        this.router.navigate(['/token']);
       },
       (err) => this.fError(err)
     );
