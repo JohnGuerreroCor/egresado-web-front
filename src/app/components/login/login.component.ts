@@ -42,7 +42,10 @@ export class LoginComponent implements OnInit {
       showConfirmButton: false,
     }); */
     if (this.authService.isAuthenticated()) {
-      if (this.authService.codigoverificacion != null) {
+      if (
+        this.authService.codigoverificacion != null &&
+        this.authService.Codigoverificacion
+      ) {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -98,14 +101,21 @@ export class LoginComponent implements OnInit {
         this.authService.guardarUsuario(response.access_token);
         this.authService.guardarToken(response.access_token);
         // Mostrar mensaje de éxito y redirigir
-        Swal.fire({
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
           icon: 'success',
           title: 'Inicio de sesión exitoso.',
-          confirmButtonColor: '#8f141b',
-          confirmButtonText: 'Listo',
-          showClass: {
-            popup: 'slide-top',
-          },
         });
         // Redirigir al usuario a la página de inicio o de token según el valor del parámetro web
         this.router.navigate(['/token']);

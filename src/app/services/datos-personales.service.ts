@@ -47,10 +47,12 @@ export class DatosPersonalesService {
     return false;
   }
 
-  obtenerDatosPersonales(codigo: string): Observable<DatosPersonales[]> {
+  obtenerDatosPersonales(
+    identificacion: string
+  ): Observable<DatosPersonales[]> {
     return this.http
       .get<DatosPersonales[]>(
-        `${this.url}/obtener-datos-personales/${codigo}`,
+        `${this.url}/obtener-datos-personales/${identificacion}`,
         {
           headers: this.aggAutorizacionHeader(),
         }

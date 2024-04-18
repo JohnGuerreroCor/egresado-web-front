@@ -317,6 +317,10 @@ input[type="number"] {
   --mat-mdc-radio-checked-ripple-color: #8f141b;
 }
 
+.mdc-text-field--disabled .mdc-text-field__input {
+  color: rgb(0, 0, 0);
+}
+
 .tiquete {
   width: 300px;
   border-radius: 2px;

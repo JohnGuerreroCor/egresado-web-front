@@ -92,7 +92,7 @@ export class InformacionAcademicaComponent {
     public informacionAcademicaService: InformacionAcademicaService,
     private router: Router
   ) {
-    this.identificacion = '' + authService.user.identificacion;
+    this.identificacion = '' + authService.user.personaIdentificacion;
     this.obtenerRegistroEducativo();
     this.obtenerIdiomas();
     this.obtenerHabilidadesInformatica();
@@ -441,7 +441,7 @@ export class ModalEstudiosRealizados {
   generar(): void {
     let registroEducativo: RegistroEducativo = new RegistroEducativo();
     registroEducativo.codigo = this.formulario.get('codigo')!.value;
-    registroEducativo.personaCodigo = this.authService.user.per_codigo;
+    registroEducativo.personaCodigo = this.authService.user.personaCodigo;
     registroEducativo.titulo = this.formulario.get('titulo')!.value;
     registroEducativo.nivelAcademicoCodigo =
       this.formulario.get('nivelFormacion')!.value;
@@ -614,7 +614,7 @@ export class ModalIdioma {
   generar(): void {
     let idioma: Idioma = new Idioma();
     idioma.codigo = this.formulario.get('codigo')!.value;
-    idioma.personaCodigo = this.authService.user.per_codigo;
+    idioma.personaCodigo = this.authService.user.personaCodigo;
     idioma.nombre = this.formulario.get('idioma')!.value;
     idioma.conversacionCodigo = this.formulario.get('conversacion')!.value;
     idioma.escrituraCodigo = this.formulario.get('escritura')!.value;
@@ -769,7 +769,7 @@ export class ModalHabilidadInformatica {
   generar(): void {
     let habilidadInformatica: HabilidadInformatica = new HabilidadInformatica();
     habilidadInformatica.codigo = this.formulario.get('codigo')!.value;
-    habilidadInformatica.personaCodigo = this.authService.user.per_codigo;
+    habilidadInformatica.personaCodigo = this.authService.user.personaCodigo;
     habilidadInformatica.nombrePrograma =
       this.formulario.get('programa')!.value;
     habilidadInformatica.dominioCodigo = this.formulario.get('dominio')!.value;

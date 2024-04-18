@@ -95,22 +95,24 @@ export class CurriculumComponent {
     this.datosPersonales();
     this.obtenerDatosComplementarios();
     this.informacionAcademicaService
-      .obtenerHabilidadesInformaticas(this.authService.user.identificacion)
+      .obtenerHabilidadesInformaticas(
+        this.authService.user.personaIdentificacion
+      )
       .subscribe((data) => {
         this.listadoHabilidadInformatica = data;
       });
     this.informacionAcademicaService
-      .obtenerIdiomas(this.authService.user.identificacion)
+      .obtenerIdiomas(this.authService.user.personaIdentificacion)
       .subscribe((data) => {
         this.listadoIdioma = data;
       });
     this.informacionAcademicaService
-      .obtenerRegistroEducativo(this.authService.user.identificacion)
+      .obtenerRegistroEducativo(this.authService.user.personaIdentificacion)
       .subscribe((data) => {
         this.listadoRegistroEducativo = data;
       });
     this.historialLaboralService
-      .obtenerHistorialLaboral(this.authService.user.identificacion)
+      .obtenerHistorialLaboral(this.authService.user.personaIdentificacion)
       .subscribe((data) => {
         this.listadoHistorialLaboral = data;
       });
@@ -162,7 +164,7 @@ export class CurriculumComponent {
 
   datosPersonales() {
     this.datosPersonalesService
-      .obtenerDatosPersonales(this.authService.user.identificacion)
+      .obtenerDatosPersonales(this.authService.user.personaIdentificacion)
       .subscribe((data) => {
         this.listadoDatosPersonales = data;
         this.precargaGraduado();

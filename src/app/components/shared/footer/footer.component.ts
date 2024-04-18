@@ -7,16 +7,15 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { NavbarHiddenService } from 'src/app/services/navbar-hidden.service';
 import { FotoService } from 'src/app/services/foto.service';
-import Swal from 'sweetalert2';
+import swal from 'sweetalert2';
 import { FotoAntigua } from '../../../models/foto-antigua';
-import { formatDate } from '@angular/common';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  selector: 'app-footer',
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.css'],
 })
-export class NavbarComponent implements OnInit {
+export class FooterComponent implements OnInit {
   public perCodigo: any = this.auth.user.personaCodigo;
   public perCodigoAntigua: any = '' + this.auth.user.personaCodigo;
   public nombre: any = this.auth.user.personaNombre;
@@ -70,59 +69,21 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  informacion() {
-    const horaInicioFormateada = formatDate(
-      this.horaInicioSesion,
-      'dd-MM-yyyy, h:mm a',
-      'en-US'
-    );
-    const horaFinFormateada = formatDate(
-      this.horaFinSesion,
-      'dd-MM-yyyy, h:mm a',
-      'en-US'
-    );
-
-    Swal.fire({
-      title: 'Información de inicio de sesión',
-      html: ` 
-        <hr style="border-bottom: dashed 1px #222d32;" />      
-        <small><b>HORA INICIO SESIÓN: </b><br /> ${horaInicioFormateada} </small>      
-        <hr style="border-bottom: dashed 1px #222d32;" />        
-        <small><b>HORA FINALIZACIÓN: </b><br /> ${horaFinFormateada} </small>
-        <hr style="border-bottom: dashed 1px #222d32;" />    
-      `,
-      showConfirmButton: true,
-      confirmButtonText: 'Listo',
-      confirmButtonColor: '#8f141b',
-    });
-  }
-
-  instruccion() {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Importante',
-      html: 'Por favor, complete o actualice toda la información necesaria para garantizar el <b>registro como egresado</b> y poder generar la <b>liquidación de derechos de grado</b>. Diligencie o actualice los campos de cada una de las pestañas de la parte superior: <br><br> <b>Datos personales</b><br><b>Información académica</b><br><b>Experiencia laboral</b><br><b>Perfil profesional</b>',
-      showConfirmButton: true,
-      confirmButtonText: 'Listo',
-      confirmButtonColor: '#8f141b',
-    });
-  }
-
   scroll(page: HTMLElement) {
     page.scrollIntoView();
   }
 
   logout(): void {
     this.auth.logout();
-    const Toast = Swal.mixin({
+    const Toast = swal.mixin({
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: true,
       didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
+        toast.addEventListener('mouseenter', swal.stopTimer);
+        toast.addEventListener('mouseleave', swal.resumeTimer);
       },
     });
 
@@ -154,21 +115,23 @@ export class NavbarComponent implements OnInit {
     // Si faltan 10 minutos o menos para la hora de fin de sesión, mostrar SweetAlert
     if (diferenciaTiempo <= 10 * 60 * 1000) {
       // 10 minutos en milisegundos
-      Swal.fire({
-        title: '¡Atención!',
-        text: 'Tu sesión está a punto de terminar.',
-        icon: 'warning',
-        confirmButtonText: 'Entendido',
-        confirmButtonColor: '#8f141b',
-        timer: 5000, // Mostrar alerta durante 5 segundos
-        timerProgressBar: true,
-        allowOutsideClick: false,
-      }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
-          // Cerrar sesión si se confirma o si se agota el tiempo del timer
-          this.logout();
-        }
-      });
+      swal
+        .fire({
+          title: '¡Atención!',
+          text: 'Tu sesión está a punto de terminar.',
+          icon: 'warning',
+          confirmButtonText: 'Entendido',
+          confirmButtonColor: '#8f141b',
+          timer: 5000, // Mostrar alerta durante 5 segundos
+          timerProgressBar: true,
+          allowOutsideClick: false,
+        })
+        .then((result) => {
+          if (result.dismiss === swal.DismissReason.timer) {
+            // Cerrar sesión si se confirma o si se agota el tiempo del timer
+            this.logout();
+          }
+        });
     }
   }
 

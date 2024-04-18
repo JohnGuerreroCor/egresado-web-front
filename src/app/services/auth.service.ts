@@ -129,18 +129,16 @@ export class AuthService {
 
   guardarUsuario(accessToken: string): void {
     let datos = this.obtenerdatosToken(accessToken);
-    //  let helper = new JwtHelperService();
-    // let datos = helper.decodeToken(accessToken);
-    console.log(datos);
 
     this.usuario = new Usuario();
     this.usuario.username = datos.user_name;
-    this.usuario.per_codigo = datos.per_codigo;
+    this.usuario.personaCodigo = datos.personaCodigo;
     this.usuario.roles = datos.authorities;
-    this.usuario.nombre = datos.nombre;
-    this.usuario.apellido = datos.apellido;
-    this.usuario.uaa = datos.uaa;
-    this.usuario.identificacion = datos.identificacion;
+    this.usuario.personaNombre = datos.personaNombre;
+    this.usuario.personaApellido = datos.personaApellido;
+    this.usuario.personaIdentificacion = datos.personaIdentificacion;
+    this.usuario.uaaNombre = datos.uaaNombre;
+    this.usuario.horaInicioSesion = datos.horaInicioSesion;
 
     sessionStorage.setItem('usuario', JSON.stringify(this.usuario));
     localStorage.setItem('usuario', JSON.stringify(this.usuario));

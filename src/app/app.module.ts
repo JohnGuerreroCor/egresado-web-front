@@ -35,6 +35,8 @@ import {
 import { PerfilProfesionalComponent } from './components/encuesta-egresado/perfil-profesional/perfil-profesional.component';
 import { CurriculumComponent } from './components/encuesta-egresado/curriculum/curriculum.component';
 import { NgxPrintModule } from 'ngx-print';
+import { NotfoundComponent } from './components/notfound/notfound.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
 
 registerLocaleData(localeEsCO, 'es-CO');
 
@@ -57,6 +59,8 @@ registerLocaleData(localeEsCO, 'es-CO');
     ModalIdioma,
     ModalEstudiosRealizados,
     CurriculumComponent,
+    NotfoundComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

@@ -60,7 +60,7 @@ export class ExperienciaLaboralComponent {
     public historialLaboralService: HistorialLaboralService,
     private router: Router
   ) {
-    this.identificacion = '' + authService.user.identificacion;
+    this.identificacion = '' + authService.user.personaIdentificacion;
     this.obtenerMencionReconocimiento();
   }
 
@@ -251,7 +251,7 @@ export class ModalExperienciaLaboral {
   generar(): void {
     let historialLaboral: HistorialLaboral = new HistorialLaboral();
     historialLaboral.codigo = this.formulario.get('codigo')!.value;
-    historialLaboral.personaCodigo = this.authService.user.per_codigo;
+    historialLaboral.personaCodigo = this.authService.user.personaCodigo;
     historialLaboral.cargo = this.formulario.get('cargo')!.value;
     historialLaboral.funcion = this.formulario.get('funcion')!.value;
     historialLaboral.empresa = this.formulario.get('empresa')!.value;
