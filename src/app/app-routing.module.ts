@@ -7,6 +7,8 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+
   { path: 'acceso-denegado', component: NotfoundComponent },
 
   { path: 'login', component: LoginComponent },
@@ -19,7 +21,7 @@ const routes: Routes = [
   },
   /* { path: 'encuesta-seguimiento', component: EncuestaEgresadoComponent }, */
 
-  { path: '**', pathMatch: 'full', redirectTo: '/acceso-denegado' },
+  { path: '**', redirectTo: 'acceso-denegado' },
 ];
 
 @NgModule({
