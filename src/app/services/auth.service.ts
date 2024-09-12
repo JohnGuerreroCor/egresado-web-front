@@ -34,11 +34,6 @@ export class AuthService {
     return new Usuario();
   }
 
-  public obtenerUaa(): number {
-    let { ucod } = this.obtenerdatosToken(this.Token);
-    return ucod;
-  }
-
   public obtenerPerCodigo(): number {
     let { per_codigo } = this.obtenerdatosToken(this.Token);
     return per_codigo;
@@ -137,7 +132,6 @@ export class AuthService {
     this.usuario.personaNombre = datos.personaNombre;
     this.usuario.personaApellido = datos.personaApellido;
     this.usuario.personaIdentificacion = datos.personaIdentificacion;
-    this.usuario.uaaNombre = datos.uaaNombre;
     this.usuario.horaInicioSesion = datos.horaInicioSesion;
 
     sessionStorage.setItem('usuario', JSON.stringify(this.usuario));

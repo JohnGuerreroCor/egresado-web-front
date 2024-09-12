@@ -111,6 +111,7 @@ export class PerfilProfesionalComponent {
               text: '¡Operación exitosa!',
               showConfirmButton: false,
             });
+            this.actualizarRegistroEgresado(datosComplementarios);
             this.obtenerDatosComplementarios();
           } else {
             this.mensajeError();

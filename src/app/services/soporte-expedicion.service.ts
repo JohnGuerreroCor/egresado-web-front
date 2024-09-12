@@ -15,8 +15,6 @@ export class SoporteExpedicionService {
 
   userLogeado: String = this.authservice.user.username;
 
-  private uaa = this.authservice.obtenerUaa();
-
   private perCodigo = this.authservice.obtenerPerCodigo();
 
   constructor(
@@ -42,17 +40,6 @@ export class SoporteExpedicionService {
       return true;
     }
     return false;
-  }
-
-  registrarSoporte(archivo: File, json: SoporteExpedicion): Observable<null> {
-    let formData: FormData = new FormData();
-    formData.set('archivo', archivo);
-    formData.set('json', JSON.stringify(json));
-    return this.http.post<null>(
-      `${this.url}/registrar-soporte-expedicion/${this.userLogeado}/${this.perCodigo}/${this.uaa}`,
-      formData,
-      { headers: this.aggAutorizacionHeader() }
-    );
   }
 
   actualizarSoporte(soporte: SoporteExpedicion): Observable<number> {

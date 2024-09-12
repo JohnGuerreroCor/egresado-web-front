@@ -14,12 +14,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'token', component: TokenComponent },
 
-  {
+ /*  {
     path: 'encuesta-seguimiento',
     component: EncuestaEgresadoComponent,
     canActivate: [AuthGuard],
-  },
-  /* { path: 'encuesta-seguimiento', component: EncuestaEgresadoComponent }, */
+  }, */
+  { path: 'encuesta-seguimiento', component: EncuestaEgresadoComponent },
 
   { path: '**', redirectTo: 'acceso-denegado' },
 ];

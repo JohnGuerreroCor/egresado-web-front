@@ -58,7 +58,9 @@ export class DatosPersonalesComponent {
 
   cargaFoto: boolean = false;
 
-  nombreFoto = 'Seleccione la foto a cargar...';
+  alert: boolean = true;
+
+  nombreFoto = 'Seleccione la foto';
 
   file!: FileList;
 
@@ -104,21 +106,66 @@ export class DatosPersonalesComponent {
   private crearFormularioDatosPersonales(): void {
     this.formDatosPersonales = this.formBuilder.group({
       codigo: new FormControl(''),
-      identificacionTipo: new FormControl({ value: '', disabled: true }, Validators.required),
-      identificacion: new FormControl({ value: '', disabled: true }, Validators.required),
-      identificacionFechaExpedicion: new FormControl({ value: '', disabled: true }, Validators.required),
-      paisExpedicion: new FormControl({ value: '', disabled: true }, Validators.required),
-      departamentoExpedicion: new FormControl({ value: '', disabled: true }, Validators.required),
-      municipioExpedicion: new FormControl({ value: '', disabled: true }, Validators.required),
-      apellido: new FormControl({ value: '', disabled: true }, Validators.required),
-      nombre: new FormControl({ value: '', disabled: true }, Validators.required),
-      genero: new FormControl({ value: '', disabled: true }, Validators.required),
-      estadoCivil: new FormControl({ value: '', disabled: true }, Validators.required),
-      grupoSanguineo: new FormControl({ value: '', disabled: true }, Validators.required),
-      fechaNacimiento: new FormControl({ value: '', disabled: true }, Validators.required),
-      paisNacimiento: new FormControl({ value: '', disabled: true }, Validators.required),
-      departamentoNacimiento: new FormControl({ value: '', disabled: true }, Validators.required),
-      municipioNacimiento: new FormControl({ value: '', disabled: true }, Validators.required),
+      identificacionTipo: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      identificacion: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      identificacionFechaExpedicion: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      paisExpedicion: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      departamentoExpedicion: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      municipioExpedicion: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      apellido: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      nombre: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      genero: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      estadoCivil: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      grupoSanguineo: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      fechaNacimiento: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      paisNacimiento: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      departamentoNacimiento: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
+      municipioNacimiento: new FormControl(
+        { value: '', disabled: true },
+        Validators.required
+      ),
       emailPersonal: new FormControl('', Validators.required),
       paginaWeb: new FormControl('', Validators.required),
       telefonoFijo: new FormControl('', Validators.required),
@@ -131,7 +178,11 @@ export class DatosPersonalesComponent {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.alert = false;
+    }, 9000);
+  }
 
   deshabilitado() {
     const Toast = Swal.mixin({
@@ -449,7 +500,6 @@ export class ModalExpedicion implements OnInit {
       });
   }
 
-
   ngOnInit() {
     Swal.fire({
       icon: 'warning',
@@ -504,32 +554,6 @@ export class ModalExpedicion implements OnInit {
     this.formDatosExpedicion
       .get('identificacionFechaExpedicion')!
       .setValue(fechaExpedicion);
-  }
-
-  generarSoporteExpedicion(): void {
-    let soporteExpedicion: SoporteExpedicion = new SoporteExpedicion();
-    soporteExpedicion.codigo =
-      this.formDatosExpedicion.get('codigoSoporte')!.value;
-    soporteExpedicion.perCodigo = this.formDatosExpedicion.get('codigo')!.value;
-    soporteExpedicion.nombre = this.formDatosExpedicion.get('archivo')!.value;
-    //soporteExpedicion.ruta = this.formDatosExpedicion.get('url')!.value;
-    let file: any = this.file;
-    this.registrarSoporte(file, soporteExpedicion);
-  }
-
-  registrarSoporte(archivo: File, soporteExpedicion: SoporteExpedicion) {
-    const arch = new File([archivo], this.nombreArchivo, {
-      type: archivo.type,
-    });
-    this.soporteExpedicionService
-      .registrarSoporte(arch, soporteExpedicion)
-      .subscribe(
-        (data) => {
-          this.generarDatosExpedicion();
-          //this.enviarEmailRector();
-        },
-        (err) => this.fError(err)
-      );
   }
 
   generarDatosExpedicion(): void {

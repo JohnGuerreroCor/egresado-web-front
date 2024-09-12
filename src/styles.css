@@ -10,6 +10,7 @@ body {
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
   background-color: #fafafa !important;
 }
+
 label {
   display: inline-block;
   margin-bottom: 0 !important;
@@ -429,7 +430,7 @@ input[type="number"] {
 
 .btn-flotante-usco {
   position: fixed;
-  bottom: 20px;
+  bottom: 50px;
   right: 17px;
   background-color: #1e262b;
   color: #ffffff;

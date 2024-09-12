@@ -6,7 +6,6 @@ export class Usuario {
   personaNombre!: string;
   personaApellido!: string;
   personaIdentificacion!: string;
-  uaaNombre!: string;
   roles: string[] = [];
   horaInicioSesion!: string;
 }

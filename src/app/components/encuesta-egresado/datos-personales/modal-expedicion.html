@@ -92,11 +92,7 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button
-    class="btn btn-success"
-    [disabled]="!formDatosExpedicion.valid"
-    (click)="generarSoporteExpedicion()"
-  >
+  <button class="btn btn-success" [disabled]="!formDatosExpedicion.valid">
     <i class="fa-solid fa-floppy-disk"></i> Guardar
   </button>
   <button class="btn btn-warning ml-2" mat-dialog-close>

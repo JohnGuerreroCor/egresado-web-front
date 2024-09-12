@@ -23,10 +23,7 @@
       class="rounded-circle d-inline-block align-top"
       alt="avatar image"
     />
-    <small>
-      {{ nombre }}
-      {{ apellido }}</small
-    >
+    <small> {{ nombre }}</small>
   </a>
   <div
     class="dropdown-menu dropdown-info text-center"
@@ -80,12 +77,16 @@
         >
       </li> -->
       <li class="nav-item item-usco active">
-        <a class="nav-link font-usco-default cursor-select" (click)="informacion()"
+        <a
+          class="nav-link font-usco-default cursor-select"
+          (click)="informacion()"
           ><i class="fa-solid fa-circle-question"></i> Sesión</a
         >
       </li>
       <li class="nav-item item-usco active">
-        <a class="nav-link font-usco-default cursor-select" (click)="instruccion()"
+        <a
+          class="nav-link font-usco-default cursor-select"
+          (click)="instruccion()"
           ><i class="fa-solid fa-circle-info"></i> Instrucciones</a
         >
       </li>
